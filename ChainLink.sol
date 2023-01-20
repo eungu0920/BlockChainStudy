@@ -100,6 +100,9 @@ contract VRFD20 is VRFConsumerBaseV2 {
         s_results[roller] = ROLL_IN_PROGRESS;
         emit DiceRolled(requestId, roller);
     }
+    
+    function lottery() public {
+    
 
     /**
      * @notice Callback function used by VRF Coordinator to return the random number to this contract.
