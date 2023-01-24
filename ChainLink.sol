@@ -97,6 +97,9 @@ contract VRFD20 is VRFConsumerBaseV2 {
     
     function lottery() public {
     
+    
+    }
+    
 
     /**
      * @notice Callback function used by VRF Coordinator to return the random number to this contract.
