@@ -3,32 +3,34 @@ pragma solidity ^0.8.12;
 
 contract lottery{
 
-    mapping (address => uint256) user;
-    uint256 total_users;
-    uint256 winning_number;
-    uint256 winning_ether;
+    //배열
+    mapping (address => uint256[]) user;
+    uint256[] winning_number;
 
-    function lottery_in(uint256 number) public payable {
-        if(msg.value == 0.01 ether){
-            user[msg.sender] = number;
-            total_users = total_users + 1;
-        }else{
-            revert();
-        }
+    function lottery_in(uint256 number1, uint256 number2, uint256 number3) public {
+        user[msg.sender] = [number1, number2, number3];
+    }
+    //user[msg.sender] = [2, 3, 4]
+
+    function lottery_set(uint256 number1, uint256 number2, uint256 number3) public {
+        winning_number[number1] = 1;
+        winning_number[number2] = 1;
+        winning_number[number3] = 1;
     }
 
-    function lottery_set(uint256 number) public {
-        winning_number = number;
-        winning_ether = address(this).balance / total_users;
-    }
+    //winning_number = [0, 1, 1, 1, 0, 0, 0, ...]
+    function claim() public view returns(uint256){
+        uint256 total_point = 3;
 
-    function claim() public {
-        if(user[msg.sender] == winning_number){
-            address payable to = payable(msg.sender);
-            //to.transfer(address(this).balance);
-            to.transfer(winning_ether);
-        }else{
-            revert();
+        if(winning_number[user[msg.sender][0]] == 1){
+            total_point = total_point - 1;
         }
+        if(winning_number[user[msg.sender][1]] == 1){
+            total_point = total_point - 1;
+        }
+        if(winning_number[user[msg.sender][2]] == 1){
+            total_point = total_point - 1;
+        }
+        return total_point;
     }
 }
