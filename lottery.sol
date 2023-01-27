@@ -17,8 +17,9 @@ contract lottery{
         winning_number[number2] = 1;
         winning_number[number3] = 1;
     }
-
+    //배열인덱스를 로또번호로 사용하여 해당 로또 번호를 선택하면 그 배열 인덱스의 밸류값이 1을 넣고 선택한 것으로 간주함
     //winning_number = [0, 1, 1, 1, 0, 0, 0, ...]
+    
     function claim() public view returns(uint256){
         uint256 total_point = 3;
 
